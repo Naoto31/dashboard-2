@@ -4,18 +4,23 @@
   position: relative;
 
   h2 {
+    cursor: pointer;
     position: absolute;
     background-color: white;
-    width: 100%;
+    width: calc(100% - 40px);
     padding: 10px 20px;
     color: #002233;
+
+    &:hover {
+      background-color: #cbd3d6;
+    }
   }
 
   .title-dashboard {
-    top: 13%;
+    top: 130px;
   }
 
   .title-logout {
-    top: 20%;
+    top: 190px;
   }
 }

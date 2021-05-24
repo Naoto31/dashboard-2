@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -13,6 +15,7 @@ export class DashboardComponent implements OnInit {
   public offers = [] as any; 
   public searchInput = '' as string;
   public selectedValue = '' as string;
+  public faMapMarkerAlt = faMapMarkerAlt;
 
   /**
    * @param http 
@@ -27,7 +30,7 @@ export class DashboardComponent implements OnInit {
    */
   async ngOnInit() {
   await this.getOffersData();
-  this.sortOffer();
+  // this.sortOffer();
   }
 
   /**
@@ -35,11 +38,27 @@ export class DashboardComponent implements OnInit {
    */
   private async getOffersData() {
     const url = 'https://truckoo-backend-aqkoiog6bq-ew.a.run.app/rest/v1/offers/active-offers';
-    await this.http.get(url).toPromise().then(value => {
-      this.offers = value;
-      this.prepValues = value;
-      return value;
+    await this.http.get(url).toPromise().then(async (value) => {
+      this.offers = await this.arrangeValue(value);
+      this.prepValues = this.offers;
     })
+  }
+  
+  /**
+   * clean the data for display
+   * @param value 
+   */
+  private arrangeValue(value: any) {
+    value.map((ele: any) => {
+      if (ele.askPrice) {
+        ele.askPrice = parseInt(ele.askPrice).toLocaleString('de-DE');
+      } 
+      
+      if (ele.highestBid) {
+        ele.highestBid = parseInt(ele.highestBid).toLocaleString('de-DE');
+      }
+    })
+    return value;
   }
 
   /**
@@ -77,5 +96,4 @@ export class DashboardComponent implements OnInit {
         break;
     }
   }
-
 }

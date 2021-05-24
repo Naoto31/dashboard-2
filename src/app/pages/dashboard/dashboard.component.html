@@ -7,27 +7,47 @@
           type="text"
           name="search"
           id="search"
-          placeholder="add text..."
           [(ngModel)]="searchInput"
         />
       </form>
       <button (click)="filterCard()">Search</button>
     </div>
 
-    <select [(ngModel)]="selectedValue" (change)="sortOffer()">
-      <option value="date">Publishing Date</option>
-      <option value="ascending">Price Ascending</option>
-      <option value="descending">Price Descending</option>
-    </select>
+    <div class="sort">
+      <p>Sort</p>
+      <select [(ngModel)]="selectedValue" (change)="sortOffer()">
+        <option value="date">Publishing Date</option>
+        <option value="ascending">Price Ascending</option>
+        <option value="descending">Price Descending</option>
+      </select>
+    </div>
   </div>
 
   <!-- body-part -->
   <div class="offer-list">
-    <div *ngFor="let offer of offers; let i = index" style="width: 33%">
+    <div
+      *ngFor="let offer of offers; let i = index"
+      style="width: calc(100% / 3)"
+    >
       <div
         class="card"
         [ngStyle]="{
-          'margin-right': (i + 1) % 3 === 0 ? '0' : '25px'
+          'margin-right':
+            (i + 1) % 3 === 0
+              ? '0'
+              : (i + 2) % 3 === 0
+              ? '10px'
+              : (i + 3) % 3 === 0
+              ? '20px'
+              : null,
+          'margin-left':
+            (i + 1) % 3 === 0
+              ? '20px'
+              : (i + 2) % 3 === 0
+              ? '10px'
+              : (i + 3) % 3 === 0
+              ? '0'
+              : null
         }"
       >
         <img
@@ -38,17 +58,45 @@
           height="400"
         />
         <div class="card-body">
-          <h3 class="card-text">
-            {{ offer.title }}
-          </h3>
-          <div class="tag-div">
-            <span *ngFor="let tag of offer.tags" class="card-tag">
-              {{ tag }}
-            </span>
+          <div class="card-upper">
+            <div class="upper-inside">
+              <h3 class="card-text">
+                {{ offer.title }}
+              </h3>
+              <div class="tag-div">
+                <span
+                  *ngFor="let tag of offer.tags"
+                  class="card-tag"
+                  [ngStyle]="{ display: tag ? '' : 'none' }"
+                >
+                  {{ tag }}
+                </span>
+              </div>
+              <div class="location-div">
+                <p style="color: #d6e0e4">
+                  {{ offer.shortCode }}
+                </p>
+                <p
+                  *ngIf="offer.location"
+                  style="color: #31657e; font-weight: bold"
+                >
+                  <fa-icon [icon]="faMapMarkerAlt"></fa-icon>
+                  {{ offer.location }}
+                </p>
+              </div>
+            </div>
           </div>
-          <div class="offer-text">
-            <h4>Current Offer</h4>
-            <p>{{ offer.highestBid }} €</p>
+          <div class="card-down">
+            <div class="ask-price" style="color: #60879a">
+              <p>Ask Price</p>
+              <p class="price">
+                {{ offer.askPrice ? offer.askPrice + " €" : "No data" }}
+              </p>
+            </div>
+            <div class="current-offer">
+              <p>Current Offer</p>
+              <p class="price">{{ offer.highestBid }} €</p>
+            </div>
           </div>
         </div>
       </div>
