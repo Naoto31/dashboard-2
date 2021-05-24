@@ -1,0 +1,13 @@
+.app-div {
+  display: flex;
+}
+
+.app-side-bar {
+  width: 20%;
+}
+
+.app-dashboard {
+  width: 80%;
+  overflow-y: hidden;
+  height: 100vh;
+}

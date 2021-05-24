@@ -1,0 +1,57 @@
+<div class="dashboard">
+  <!-- header-part -->
+  <div class="dashboard-header">
+    <div class="filter-div">
+      <form role="search" name="filter-search" image-search novalidate>
+        <input
+          type="text"
+          name="search"
+          id="search"
+          placeholder="add text..."
+          [(ngModel)]="searchInput"
+        />
+      </form>
+      <button (click)="filterCard()">Search</button>
+    </div>
+
+    <select [(ngModel)]="selectedValue" (change)="sortOffer()">
+      <option value="date">Publishing Date</option>
+      <option value="ascending">Price Ascending</option>
+      <option value="descending">Price Descending</option>
+    </select>
+  </div>
+
+  <!-- body-part -->
+  <div class="offer-list">
+    <div *ngFor="let offer of offers; let i = index" style="width: 33%">
+      <div
+        class="card"
+        [ngStyle]="{
+          'margin-right': (i + 1) % 3 === 0 ? '0' : '25px'
+        }"
+      >
+        <img
+          class="card-img-top"
+          src="{{ offer.vehicle_picture_front }}"
+          alt="Card image cap"
+          width="600"
+          height="400"
+        />
+        <div class="card-body">
+          <h3 class="card-text">
+            {{ offer.title }}
+          </h3>
+          <div class="tag-div">
+            <span *ngFor="let tag of offer.tags" class="card-tag">
+              {{ tag }}
+            </span>
+          </div>
+          <div class="offer-text">
+            <h4>Current Offer</h4>
+            <p>{{ offer.highestBid }} €</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
