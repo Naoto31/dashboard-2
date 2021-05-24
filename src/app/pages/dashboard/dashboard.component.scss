@@ -14,7 +14,7 @@
 
     input {
       height: 30px;
-      width: 550px;
+      width: 500px;
       background-color: #e5e9ea;
       border-radius: 5px;
       border: solid 1px #31657e;
@@ -71,7 +71,7 @@
   }
 
   .card {
-    height: 500px;
+    height: 550px;
     margin-bottom: 25px;
     border-radius: 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -138,7 +138,6 @@
       width: calc(100% - 40px);
     }
   }
-
   .ask-price,
   .current-offer {
     display: flex;
